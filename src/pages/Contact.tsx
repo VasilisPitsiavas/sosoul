@@ -38,7 +38,7 @@ export function Contact() {
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
-      <div className="grid gap-16 lg:grid-cols-2 lg:gap-24">
+      <div className="grid gap-12 lg:grid-cols-2 lg:items-start lg:gap-16">
         <div>
           <h1 className="font-display text-4xl font-medium text-sage-800 sm:text-5xl">
             Contact
@@ -69,7 +69,7 @@ export function Contact() {
           )}
         </div>
 
-        <div className="rounded-2xl border border-sage-200 bg-white p-6 shadow-sm sm:p-8">
+        <div className="rounded-2xl border border-sage-200/90 bg-stone-warm p-6 shadow-sm ring-1 ring-sage-100 sm:p-8">
           <form onSubmit={onSubmit} className="space-y-5">
             <div>
               <label

@@ -46,8 +46,8 @@ export function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
-        <div className="grid gap-14 lg:grid-cols-2 lg:gap-20 lg:items-center">
+      <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24">
+        <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <div>
             <h2 className="font-display text-3xl font-medium text-sage-800 sm:text-4xl">
               About Konstantina
@@ -84,7 +84,7 @@ export function Home() {
           <h2 className="text-center font-display text-3xl font-medium text-sage-800">
             What we offer
           </h2>
-          <ul className="mx-auto mt-12 grid max-w-3xl gap-8 sm:grid-cols-3">
+          <ul className="mx-auto mt-12 grid w-full max-w-6xl gap-8 sm:grid-cols-3 sm:gap-10">
             {[
               {
                 title: "Group classes",

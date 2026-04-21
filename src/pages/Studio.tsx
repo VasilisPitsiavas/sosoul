@@ -1,52 +1,60 @@
+import { PhotoCard } from "@/components/PhotoCard";
 import { studioPhotos } from "@/data/placeholders";
 
 export function Studio() {
   return (
     <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
-      <header className="max-w-2xl">
+      <header className="max-w-3xl">
         <h1 className="font-display text-4xl font-medium text-sage-800 sm:text-5xl">
           The studio
         </h1>
         <p className="mt-4 text-sage-600 leading-relaxed">
           A calm room for practice—natural light, simple lines, and everything
-          you need for a grounded session. Update this copy with your real
-          address, opening hours, and how to find you.
+          you need for a grounded session. Add your address, hours, and how to
+          find you when you are ready.
         </p>
       </header>
 
-      <div className="mt-12 grid gap-12 lg:grid-cols-2 lg:items-start">
-        <div className="space-y-4 text-sage-700 leading-relaxed">
-          <p>
-            We keep the space uncluttered so you can focus on breath and
-            movement. Mats and props are available; you are welcome to bring
-            your own mat if you prefer.
-          </p>
-          <p className="text-sm text-sage-600">
-            <strong className="font-medium text-sage-800">Placeholder:</strong>{" "}
-            Add parking, public transport, accessibility notes, and studio
-            etiquette here.
-          </p>
-        </div>
-        <ul className="space-y-6">
+      <div className="mt-10 max-w-3xl space-y-4 text-sage-700 leading-relaxed">
+        <p>
+          We keep the space uncluttered so you can focus on breath and
+          movement. Mats and props are available; you are welcome to bring your
+          own mat if you prefer.
+        </p>
+        <p className="text-sm text-sage-600">
+          You can mention parking, transit, accessibility, and studio etiquette
+          in this block.
+        </p>
+      </div>
+
+      <section className="mt-14" aria-labelledby="studio-gallery-heading">
+        <h2
+          id="studio-gallery-heading"
+          className="font-display text-2xl font-medium text-sage-800 sm:text-3xl"
+        >
+          Gallery
+        </h2>
+        <p className="mt-2 max-w-2xl text-sm text-sage-600">
+          Replace images in{" "}
+          <code className="rounded bg-sage-100 px-1.5 py-0.5 text-xs">
+            src/data/placeholders.ts
+          </code>
+          .
+        </p>
+
+        <ul className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
           {studioPhotos.map((photo) => (
-            <li key={photo.src}>
-              <figure className="overflow-hidden rounded-2xl bg-sage-100 shadow-md">
-                <img
-                  src={photo.src}
-                  alt={photo.alt}
-                  className="aspect-[4/3] w-full object-cover"
-                  width={900}
-                  height={675}
-                  loading="lazy"
-                />
-                <figcaption className="px-4 py-3 text-sm text-sage-700">
-                  {photo.caption}
-                </figcaption>
-              </figure>
+            <li key={photo.src} className="min-w-0">
+              <PhotoCard
+                src={photo.src}
+                alt={photo.alt}
+                caption={photo.caption}
+                aspect="standard"
+              />
             </li>
           ))}
         </ul>
-      </div>
+      </section>
     </div>
   );
 }

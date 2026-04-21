@@ -15,7 +15,7 @@ export function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col">
       <header className="sticky top-0 z-50 border-b border-sage-200/60 bg-stone-warm">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3 sm:gap-6 sm:px-8 sm:py-4">
+        <div className="mx-auto flex min-w-0 max-w-6xl flex-wrap items-center justify-between gap-x-4 gap-y-3 px-5 py-3 sm:gap-x-6 sm:px-8 sm:py-4">
           <Link
             to="/"
             aria-label="So Soul Place — home"
@@ -23,7 +23,10 @@ export function Layout({ children }: { children: ReactNode }) {
           >
             <Logo variant="header" />
           </Link>
-          <nav className="flex items-center gap-1 sm:gap-2" aria-label="Main">
+          <nav
+            className="flex min-w-0 flex-shrink-0 flex-wrap items-center justify-end gap-1 sm:gap-2"
+            aria-label="Main"
+          >
             {nav.map(({ to, label }) => {
               const active = pathname === to;
               return (
@@ -44,7 +47,7 @@ export function Layout({ children }: { children: ReactNode }) {
         </div>
       </header>
 
-      <main className="flex-1">{children}</main>
+      <main className="min-w-0 flex-1">{children}</main>
 
       <footer className="border-t border-sage-200/80 bg-stone-warm">
         <div className="mx-auto max-w-6xl px-5 py-10 sm:px-8">
