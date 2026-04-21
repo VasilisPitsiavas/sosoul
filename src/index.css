@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", ui-serif, Georgia, serif;
+  /*
+   * So Soul Place — one system: cream canvas (logo paper) + muted blues
+   * (logo line ink). Same hue family end-to-end; sage-* names kept for classes.
+   */
+  --color-stone-warm: #faf8f5;
+  --color-sage-50: #f4f2ef;
+  --color-sage-100: #e9e6e1;
+  --color-sage-200: #d5dce2;
+  --color-sage-300: #b0c4d4;
+  --color-sage-400: #7a9eb5;
+  --color-sage-600: #5c6f80;
+  --color-sage-700: #4a5d6e;
+  --color-sage-800: #3d4f5e;
+  --color-sage-900: #2f3c48;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-stone-warm text-sage-900 font-sans antialiased;
+  }
+}
