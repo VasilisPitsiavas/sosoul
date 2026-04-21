@@ -13,18 +13,18 @@ export function Layout({ children }: { children: ReactNode }) {
   const { pathname } = useLocation();
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex min-h-screen min-w-0 flex-col overflow-x-hidden">
       <header className="sticky top-0 z-50 border-b border-sage-200/60 bg-stone-warm">
-        <div className="mx-auto flex min-w-0 max-w-6xl flex-wrap items-center justify-between gap-x-4 gap-y-3 px-5 py-3 sm:gap-x-6 sm:px-8 sm:py-4">
+        <div className="mx-auto flex min-w-0 max-w-6xl flex-col gap-3 px-4 py-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-x-4 sm:gap-y-3 sm:px-8 sm:py-4">
           <Link
             to="/"
             aria-label="So Soul Place — home"
-            className="rounded-lg outline-offset-4 transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-sage-400"
+            className="mx-auto shrink-0 rounded-lg outline-offset-4 transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-sage-400 sm:mx-0"
           >
             <Logo variant="header" />
           </Link>
           <nav
-            className="flex min-w-0 flex-shrink-0 flex-wrap items-center justify-end gap-1 sm:gap-2"
+            className="flex min-w-0 flex-wrap items-center justify-center gap-2 sm:flex-1 sm:justify-end sm:gap-2"
             aria-label="Main"
           >
             {nav.map(({ to, label }) => {
@@ -33,7 +33,7 @@ export function Layout({ children }: { children: ReactNode }) {
                 <Link
                   key={to}
                   to={to}
-                  className={`rounded-full px-3 py-1.5 text-sm font-medium transition-colors sm:px-4 ${
+                  className={`inline-flex min-h-11 min-w-[2.75rem] touch-manipulation items-center justify-center rounded-full px-3 py-2 text-sm font-medium transition-colors duration-200 sm:min-w-0 sm:px-4 ${
                     active
                       ? "bg-sage-800 text-white"
                       : "text-sage-600 hover:bg-sage-100 hover:text-sage-800"
@@ -50,7 +50,7 @@ export function Layout({ children }: { children: ReactNode }) {
       <main className="min-w-0 flex-1">{children}</main>
 
       <footer className="border-t border-sage-200/80 bg-stone-warm">
-        <div className="mx-auto max-w-6xl px-5 py-10 sm:px-8">
+        <div className="mx-auto max-w-6xl px-4 py-10 sm:px-8">
           <div className="flex flex-col items-center gap-4">
             <Logo variant="footer" />
             <p className="font-display text-center text-lg text-sage-800">

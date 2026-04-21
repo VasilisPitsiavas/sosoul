@@ -10,7 +10,7 @@ type LogoProps = {
 export function Logo({ className, variant = "header" }: LogoProps) {
   const sizeClass =
     variant === "header"
-      ? "h-[4.5rem] w-[4.5rem] shrink-0 sm:h-24 sm:w-24 md:h-28 md:w-28 lg:h-32 lg:w-32"
+      ? "h-16 w-16 shrink-0 min-[400px]:h-[4.25rem] min-[400px]:w-[4.25rem] sm:h-24 sm:w-24 md:h-28 md:w-28 lg:h-32 lg:w-32"
       : "h-36 w-36 sm:h-40 sm:w-40";
 
   return (

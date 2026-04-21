@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
 
 const FORMSPREE = import.meta.env.VITE_FORMSPREE_ENDPOINT;
+const CALENDLY = import.meta.env.VITE_CALENDLY_URL as string | undefined;
 
 export function Contact() {
   const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">(
@@ -37,18 +38,48 @@ export function Contact() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
-      <div className="grid gap-12 lg:grid-cols-2 lg:items-start lg:gap-16">
-        <div>
-          <h1 className="font-display text-4xl font-medium text-sage-800 sm:text-5xl">
-            Contact
+    <div className="mx-auto max-w-6xl px-4 py-section sm:px-8">
+      <div className="grid gap-10 sm:gap-12 lg:grid-cols-2 lg:items-start lg:gap-16">
+        <div className="min-w-0">
+          <h1 className="text-balance font-display text-3xl font-medium text-sage-800 sm:text-5xl">
+            Book &amp; contact
           </h1>
-          <p className="mt-4 text-sage-600 leading-relaxed">
-            Send a message to book a class, ask about workshops, or request a
-            private session. We will get back to you as soon as we can.
+          <p className="mt-4 text-base text-pretty text-sage-700 leading-relaxed sm:text-lg">
+            Send a short message with what you are looking for—we will get back
+            to you with availability and next steps.
           </p>
+
+          <div className="mt-8 flex max-w-md flex-col gap-3 sm:max-w-none sm:flex-row sm:flex-wrap">
+            <a
+              href="#contact-form"
+              className="inline-flex min-h-12 w-full touch-manipulation items-center justify-center rounded-full bg-sage-800 px-8 py-3.5 text-base font-semibold text-white shadow-md transition duration-300 active:scale-[0.98] sm:w-auto sm:min-h-11 sm:py-3 sm:text-sm sm:hover:-translate-y-0.5 sm:hover:bg-sage-900"
+            >
+              Write a message
+            </a>
+            {CALENDLY ? (
+              <a
+                href={CALENDLY}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-12 w-full touch-manipulation items-center justify-center rounded-full border border-sage-300 bg-white/90 px-8 py-3.5 text-base font-semibold text-sage-800 transition duration-300 active:scale-[0.98] sm:w-auto sm:min-h-11 sm:py-3 sm:text-sm sm:hover:border-sage-400 sm:hover:bg-white"
+              >
+                Pick a time (Calendly)
+              </a>
+            ) : null}
+          </div>
+          {!CALENDLY && (
+            <p className="mt-4 text-xs text-sage-600">
+              Optional: set{" "}
+              <code className="rounded bg-sage-100 px-1 py-0.5">
+                VITE_CALENDLY_URL
+              </code>{" "}
+              in <code className="rounded bg-sage-100 px-1 py-0.5">.env</code> to
+              show a scheduling link.
+            </p>
+          )}
+
           {!FORMSPREE && (
-            <p className="mt-6 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+            <p className="mt-8 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
               To enable the form, create a form at{" "}
               <a
                 href="https://formspree.io"
@@ -62,15 +93,24 @@ export function Contact() {
               <code className="rounded bg-amber-100/80 px-1">
                 VITE_FORMSPREE_ENDPOINT
               </code>{" "}
-              in a <code className="rounded bg-amber-100/80 px-1">.env</code>{" "}
-              file (see <code className="rounded bg-amber-100/80 px-1">.env.example</code>
+              in <code className="rounded bg-amber-100/80 px-1">.env</code> (see{" "}
+              <code className="rounded bg-amber-100/80 px-1">.env.example</code>
               ).
             </p>
           )}
         </div>
 
-        <div className="rounded-2xl border border-sage-200/90 bg-stone-warm p-6 shadow-sm ring-1 ring-sage-100 sm:p-8">
-          <form onSubmit={onSubmit} className="space-y-5">
+        <div
+          id="contact-form"
+          className="scroll-mt-24 rounded-2xl border border-sage-200/90 bg-stone-warm p-5 shadow-sm ring-1 ring-sage-100 sm:scroll-mt-28 sm:p-8"
+        >
+          <h2 className="font-display text-xl font-medium text-sage-800">
+            Send a message
+          </h2>
+          <p className="mt-2 text-sm text-sage-600">
+            Name, email, and a few lines are enough—we will follow up by email.
+          </p>
+          <form onSubmit={onSubmit} className="mt-6 space-y-5">
             <div>
               <label
                 htmlFor="name"
@@ -84,7 +124,7 @@ export function Contact() {
                 type="text"
                 required
                 autoComplete="name"
-                className="mt-1.5 w-full rounded-xl border border-sage-200 bg-stone-warm px-4 py-2.5 text-sage-900 outline-none transition focus:border-sage-400 focus:ring-2 focus:ring-sage-200"
+                className="mt-2 min-h-12 w-full rounded-xl border border-sage-200 bg-white px-4 py-3 text-base text-sage-900 outline-none transition focus:border-sage-400 focus:ring-2 focus:ring-sage-200 sm:min-h-11 sm:py-2.5"
               />
             </div>
             <div>
@@ -100,30 +140,8 @@ export function Contact() {
                 type="email"
                 required
                 autoComplete="email"
-                className="mt-1.5 w-full rounded-xl border border-sage-200 bg-stone-warm px-4 py-2.5 text-sage-900 outline-none transition focus:border-sage-400 focus:ring-2 focus:ring-sage-200"
+                className="mt-2 min-h-12 w-full rounded-xl border border-sage-200 bg-white px-4 py-3 text-base text-sage-900 outline-none transition focus:border-sage-400 focus:ring-2 focus:ring-sage-200 sm:min-h-11 sm:py-2.5"
               />
-            </div>
-            <div>
-              <label
-                htmlFor="topic"
-                className="block text-sm font-medium text-sage-800"
-              >
-                I am interested in
-              </label>
-              <select
-                id="topic"
-                name="topic"
-                className="mt-1.5 w-full rounded-xl border border-sage-200 bg-stone-warm px-4 py-2.5 text-sage-900 outline-none transition focus:border-sage-400 focus:ring-2 focus:ring-sage-200"
-                defaultValue=""
-              >
-                <option value="" disabled>
-                  Choose one
-                </option>
-                <option value="group-class">Group class</option>
-                <option value="private">Private session</option>
-                <option value="workshop">Workshop / event</option>
-                <option value="other">Other</option>
-              </select>
             </div>
             <div>
               <label
@@ -136,15 +154,15 @@ export function Contact() {
                 id="message"
                 name="message"
                 required
-                rows={5}
-                className="mt-1.5 w-full resize-y rounded-xl border border-sage-200 bg-stone-warm px-4 py-2.5 text-sage-900 outline-none transition focus:border-sage-400 focus:ring-2 focus:ring-sage-200"
-                placeholder="Preferred days, experience level, or any questions…"
+                rows={6}
+                className="mt-2 min-h-[10rem] w-full resize-y rounded-xl border border-sage-200 bg-white px-4 py-3 text-base text-sage-900 outline-none transition focus:border-sage-400 focus:ring-2 focus:ring-sage-200"
+                placeholder="Tell us what you are looking for (e.g. private session, group class, preferred days)…"
               />
             </div>
             <button
               type="submit"
               disabled={status === "sending" || !FORMSPREE}
-              className="w-full rounded-full bg-sage-800 py-3 text-sm font-medium text-white transition hover:bg-sage-900 disabled:cursor-not-allowed disabled:opacity-50"
+              className="min-h-12 w-full touch-manipulation rounded-full bg-sage-800 py-3.5 text-base font-semibold text-white transition duration-300 active:scale-[0.98] hover:bg-sage-900 disabled:cursor-not-allowed disabled:opacity-50 sm:min-h-11 sm:py-3 sm:text-sm"
             >
               {status === "sending" ? "Sending…" : "Send message"}
             </button>

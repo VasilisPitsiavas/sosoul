@@ -21,7 +21,7 @@ export function PhotoCard({
   zoom = false,
 }: PhotoCardProps) {
   return (
-    <figure className="group flex h-full min-w-0 flex-col overflow-hidden rounded-2xl bg-sage-100 shadow-md ring-1 ring-sage-200/50 transition-shadow hover:shadow-lg">
+    <figure className="group flex h-full min-w-0 flex-col overflow-hidden rounded-2xl bg-sage-100 shadow-md ring-1 ring-sage-200/50 transition duration-300 ease-out hover:-translate-y-0.5 hover:shadow-lg">
       <div className={`relative w-full overflow-hidden ${aspectClass[aspect]}`}>
         <img
           src={src}
