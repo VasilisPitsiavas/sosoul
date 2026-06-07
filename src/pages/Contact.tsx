@@ -8,6 +8,7 @@ export function Contact() {
     "idle",
   );
 
+  
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
