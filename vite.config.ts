@@ -6,6 +6,14 @@ import { defineConfig } from "vite";
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 
+/** Files in /public referenced from index.html — need base prefix on GitHub Pages. */
+const PUBLIC_HEAD_ASSETS = [
+  "favicon-16x16.png",
+  "favicon-32x32.png",
+  "apple-touch-icon.png",
+  "logo-so-soul-place.png",
+];
+
 export default defineConfig(({ command }) => {
   const base = command === "build" ? "/sosoul/" : "/";
 
@@ -15,12 +23,13 @@ export default defineConfig(({ command }) => {
       react(),
       tailwindcss(),
       {
-        name: "favicon-base",
+        name: "public-head-assets-base",
         transformIndexHtml(html: string) {
-          return html.replaceAll(
-            'href="/logo-so-soul-place.png"',
-            `href="${base}logo-so-soul-place.png"`,
-          );
+          let out = html;
+          for (const asset of PUBLIC_HEAD_ASSETS) {
+            out = out.replaceAll(`href="/${asset}"`, `href="${base}${asset}"`);
+          }
+          return out;
         },
       },
     ],
