@@ -15,7 +15,7 @@ export function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-screen min-w-0 flex-col overflow-x-hidden">
       <header className="sticky top-0 z-50 border-b border-sage-200/60 bg-stone-warm">
-        <div className="mx-auto flex min-w-0 max-w-6xl flex-col gap-3 px-4 py-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-x-4 sm:gap-y-3 sm:px-8 sm:py-4">
+        <div className="mx-auto flex min-w-0 max-w-6xl flex-col gap-2 px-4 py-2.5 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-x-4 sm:gap-y-2 sm:px-8 sm:py-3">
           <Link
             to="/"
             aria-label="So Soul Place — home"

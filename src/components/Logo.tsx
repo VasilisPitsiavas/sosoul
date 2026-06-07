@@ -1,5 +1,5 @@
 /** Brand image in /public — prefixed with Vite base for GitHub Pages. */
-export const LOGO_SRC = `${import.meta.env.BASE_URL}logo-so-soul-place.jpg`;
+export const LOGO_SRC = `${import.meta.env.BASE_URL}logo-so-soul-place.png`;
 
 type LogoProps = {
   className?: string;
@@ -10,8 +10,8 @@ type LogoProps = {
 export function Logo({ className, variant = "header" }: LogoProps) {
   const sizeClass =
     variant === "header"
-      ? "h-16 w-16 shrink-0 min-[400px]:h-[4.25rem] min-[400px]:w-[4.25rem] sm:h-24 sm:w-24 md:h-28 md:w-28 lg:h-32 lg:w-32"
-      : "h-36 w-36 sm:h-40 sm:w-40";
+    ? "h-20 w-20 sm:h-24 sm:w-24 md:h-28 md:w-28"   // Header variant (bigger)
+    : "h-40 w-40 sm:h-48 sm:w-48"  // Footer variant (larger)
 
   return (
     <img

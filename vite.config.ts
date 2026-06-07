@@ -18,8 +18,8 @@ export default defineConfig(({ command }) => {
         name: "favicon-base",
         transformIndexHtml(html: string) {
           return html.replaceAll(
-            'href="/logo-so-soul-place.jpg"',
-            `href="${base}logo-so-soul-place.jpg"`,
+            'href="/logo-so-soul-place.png"',
+            `href="${base}logo-so-soul-place.png"`,
           );
         },
       },
