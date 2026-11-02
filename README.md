@@ -1,13 +1,27 @@
-# So Soul Place (sosoul)
+# So Soul Place — redesign (sosoul-redesign)
 
-Website for **So Soul Place** / yoga with **Konstantina**: minimal layout, logo-led palette, and clear navigation.
+Copy of `../sosoul` with fixes from the Nov 2026 review. The live site is untouched.
 
-## What’s included
+## Where to edit things
 
-- **Home** — Hero, short bio, and highlights (group classes, workshops, privates).
-- **Events** — Photo grid for past events (swap images in `src/data/placeholders.ts`).
-- **Studio** — Studio story plus a second gallery for the space.
-- **Contact** — Booking-oriented form (wired for [Formspree](https://formspree.io); optional env var).
+| What | File |
+|------|------|
+| Email, phone, Instagram, weekly class schedule | `src/data/site.ts` |
+| All wording, Greek + English | `src/i18n/content.ts` |
+| Photos | drop files in `public/photos/` (names listed in `public/photos/README.md`); captions in `src/data/photos.ts` |
+| Your domain | `CUSTOM_DOMAIN` at the top of `vite.config.ts` |
+
+Greek is the main language (`/`, `/events` …). English lives under `/en` (`/en/events` …). The ΕΛ / EN button switches between the same page in each language.
+
+## What changed vs. the live site
+
+- Greek + English versions with a language switch.
+- No address, map or prices anywhere.
+- Setup notes no longer shown to visitors; contact form opens the visitor's email app until Formspree is connected.
+- New Home sections: "This week" strip, weekly schedule, FAQ.
+- Compact header with mobile menu; footer with contact details.
+- Each page returns HTTP 200 (deploy writes a real HTML file per route).
+- Per-page titles, Open Graph tags, skip link, smaller logo file.
 
 ## Develop
 
@@ -23,9 +37,14 @@ npm run build
 npm run preview
 ```
 
-### Contact form
+### Contact form & Calendly
 
-Copy `.env.example` to `.env`, set `VITE_FORMSPREE_ENDPOINT` to your Formspree URL, restart the dev server. Until then, the page explains how to enable submissions.
+Copy `.env.example` to `.env`:
+
+- **`VITE_FORMSPREE_ENDPOINT`** — Formspree form URL (required for the contact form to submit).
+- **`VITE_CALENDLY_URL`** — Optional full Calendly link; when set, Home and Contact show an “Open calendar” / “Pick a time” button that opens it in a new tab (no embed script).
+
+Restart the dev server after changing env vars.
 
 ## Deploy
 
@@ -39,7 +58,7 @@ Production builds use Vite `base` **`/sosoul/`** so the site works as a project 
 2. On GitHub: **Settings → Pages → Build and deployment → Source**: choose **GitHub Actions** (not “Deploy from a branch”).
 3. After the first successful run, open the URL above. Client-side routes use `404.html` + `.nojekyll` from the workflow.
 
-When you add a custom domain later, set `base` in `vite.config.ts` to `'/'` and update the workflow if needed.
+When you connect a custom domain, set `CUSTOM_DOMAIN` in `vite.config.ts` (this switches `base` to `/` and updates the share-preview links).
 
 ### Other hosts
 
@@ -48,7 +67,7 @@ When you add a custom domain later, set `base` in `vite.config.ts` to `'/'` and 
 ## Ideas to add later
 
 - **Schedule** — Embedded calendar (e.g. Cal.com / Calendly) or a simple “this week’s classes” block you edit in code or a headless CMS.
-- **Testimonials** — Short quotes under the bio or on Home.
+- **Real testimonials** — Replace placeholder quotes on Home with client feedback.
 - **FAQ** — Pricing, what to bring, cancellation policy.
 - **Language** — Greek/English toggle if you serve both audiences.
 - **Instagram** — Embed or a small feed of recent posts next to Events.

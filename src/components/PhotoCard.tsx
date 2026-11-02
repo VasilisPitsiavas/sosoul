@@ -1,5 +1,26 @@
+import { type ImgHTMLAttributes, useState } from "react";
+
+/** Image that shows `fallback` (stock photo) until your own file exists. */
+export function PhotoImg({
+  src,
+  fallback,
+  ...rest
+}: ImgHTMLAttributes<HTMLImageElement> & { src: string; fallback: string }) {
+  const [current, setCurrent] = useState(src);
+  return (
+    <img
+      {...rest}
+      src={current}
+      onError={() => {
+        if (current !== fallback) setCurrent(fallback);
+      }}
+    />
+  );
+}
+
 type PhotoCardProps = {
   src: string;
+  fallback: string;
   alt: string;
   caption: string;
   /** Gallery tile shape */
@@ -15,6 +36,7 @@ const aspectClass = {
 
 export function PhotoCard({
   src,
+  fallback,
   alt,
   caption,
   aspect = "standard",
@@ -23,8 +45,9 @@ export function PhotoCard({
   return (
     <figure className="group flex h-full min-w-0 flex-col overflow-hidden rounded-2xl bg-sage-100 shadow-md ring-1 ring-sage-200/50 transition duration-300 ease-out hover:-translate-y-0.5 hover:shadow-lg">
       <div className={`relative w-full overflow-hidden ${aspectClass[aspect]}`}>
-        <img
+        <PhotoImg
           src={src}
+          fallback={fallback}
           alt={alt}
           width={900}
           height={aspect === "landscape" ? 600 : 675}

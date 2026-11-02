@@ -10,15 +10,15 @@ type LogoProps = {
 export function Logo({ className, variant = "header" }: LogoProps) {
   const sizeClass =
     variant === "header"
-    ? "h-20 w-20 sm:h-24 sm:w-24 md:h-28 md:w-28"   // Header variant (bigger)
-    : "h-40 w-40 sm:h-48 sm:w-48"  // Footer variant (larger)
+      ? "h-14 w-14 sm:h-16 sm:w-16"
+      : "h-28 w-28";
 
   return (
     <img
       src={LOGO_SRC}
       alt=""
-      width={1024}
-      height={1024}
+      width={384}
+      height={384}
       decoding="async"
       className={`object-contain ${sizeClass} ${className ?? ""}`}
     />

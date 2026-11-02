@@ -4,7 +4,17 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
+/**
+ * YOUR DOMAIN — after buying it and connecting it in GitHub (see README),
+ * put it here, e.g. "sosoulplace.gr", then push. Leave "" to keep using
+ * https://vasilispitsiavas.github.io/sosoul/
+ */
+const CUSTOM_DOMAIN = "";
+
 const root = path.dirname(fileURLToPath(import.meta.url));
+const SITE_URL = CUSTOM_DOMAIN
+  ? `https://${CUSTOM_DOMAIN}/`
+  : "https://vasilispitsiavas.github.io/sosoul/";
 
 /** Files in /public referenced from index.html — need base prefix on GitHub Pages. */
 const PUBLIC_HEAD_ASSETS = [
@@ -15,7 +25,7 @@ const PUBLIC_HEAD_ASSETS = [
 ];
 
 export default defineConfig(({ command }) => {
-  const base = command === "build" ? "/sosoul/" : "/";
+  const base = command === "build" && !CUSTOM_DOMAIN ? "/sosoul/" : "/";
 
   return {
     base,
@@ -25,7 +35,7 @@ export default defineConfig(({ command }) => {
       {
         name: "public-head-assets-base",
         transformIndexHtml(html: string) {
-          let out = html;
+          let out = html.replaceAll("%SITE_URL%", SITE_URL);
           for (const asset of PUBLIC_HEAD_ASSETS) {
             out = out.replaceAll(`href="/${asset}"`, `href="${base}${asset}"`);
           }

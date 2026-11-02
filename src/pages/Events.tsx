@@ -1,21 +1,16 @@
 import { PhotoCard } from "@/components/PhotoCard";
-import { eventPhotos } from "@/data/placeholders";
+import { eventPhotos } from "@/data/photos";
+import { useLang } from "@/i18n/lang";
 
 export function Events() {
+  const { lang, t } = useLang();
   return (
     <div className="mx-auto max-w-6xl px-4 py-section sm:px-8">
       <header className="max-w-3xl">
         <h1 className="text-balance font-display text-3xl font-medium text-sage-800 sm:text-5xl">
-          Events
+          {t.events.title}
         </h1>
-        <p className="mt-4 text-sage-600 leading-relaxed">
-          Moments from workshops, retreats, and community classes. Swap captions
-          and images in{" "}
-          <code className="rounded bg-sage-100 px-1.5 py-0.5 text-sm">
-            src/data/placeholders.ts
-          </code>
-          .
-        </p>
+        <p className="mt-4 text-sage-600 leading-relaxed">{t.events.intro}</p>
       </header>
 
       <ul className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:gap-10">
@@ -23,8 +18,9 @@ export function Events() {
           <li key={photo.src} className="min-w-0">
             <PhotoCard
               src={photo.src}
-              alt={photo.alt}
-              caption={photo.caption}
+              fallback={photo.fallback}
+              alt={photo.alt[lang]}
+              caption={photo.caption[lang]}
               aspect="landscape"
               zoom
             />

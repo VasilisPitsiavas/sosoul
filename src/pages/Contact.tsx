@@ -1,9 +1,13 @@
 import { FormEvent, useState } from "react";
+import { site } from "@/data/site";
+import { useLang } from "@/i18n/lang";
 
 const FORMSPREE = import.meta.env.VITE_FORMSPREE_ENDPOINT;
 const CALENDLY = import.meta.env.VITE_CALENDLY_URL as string | undefined;
 
 export function Contact() {
+  const { t: all } = useLang();
+  const t = all.contact;
   const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">(
     "idle",
   );
@@ -14,7 +18,11 @@ export function Contact() {
     const form = e.currentTarget;
 
     if (!FORMSPREE) {
-      setStatus("error");
+      // No form service yet: open the visitor's email app with the message filled in
+      const d = new FormData(form);
+      const subject = encodeURIComponent(`${t.mailSubject} ${d.get("name")}`);
+      const body = encodeURIComponent(`${d.get("message")}\n\n${d.get("name")} · ${d.get("email")}`);
+      window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`;
       return;
     }
 
@@ -43,11 +51,10 @@ export function Contact() {
       <div className="grid gap-10 sm:gap-12 lg:grid-cols-2 lg:items-start lg:gap-16">
         <div className="min-w-0">
           <h1 className="text-balance font-display text-3xl font-medium text-sage-800 sm:text-5xl">
-            Book &amp; contact
+            {t.title}
           </h1>
           <p className="mt-4 text-base text-pretty text-sage-700 leading-relaxed sm:text-lg">
-            Send a short message with what you are looking for—we will get back
-            to you with availability and next steps.
+            {t.intro}
           </p>
 
           <div className="mt-8 flex max-w-md flex-col gap-3 sm:max-w-none sm:flex-row sm:flex-wrap">
@@ -55,7 +62,7 @@ export function Contact() {
               href="#contact-form"
               className="inline-flex min-h-12 w-full touch-manipulation items-center justify-center rounded-full bg-sage-800 px-8 py-3.5 text-base font-semibold text-white shadow-md transition duration-300 active:scale-[0.98] sm:w-auto sm:min-h-11 sm:py-3 sm:text-sm sm:hover:-translate-y-0.5 sm:hover:bg-sage-900"
             >
-              Write a message
+              {t.write}
             </a>
             {CALENDLY ? (
               <a
@@ -64,41 +71,26 @@ export function Contact() {
                 rel="noopener noreferrer"
                 className="inline-flex min-h-12 w-full touch-manipulation items-center justify-center rounded-full border border-sage-300 bg-white/90 px-8 py-3.5 text-base font-semibold text-sage-800 transition duration-300 active:scale-[0.98] sm:w-auto sm:min-h-11 sm:py-3 sm:text-sm sm:hover:border-sage-400 sm:hover:bg-white"
               >
-                Pick a time (Calendly)
+                {t.calendly}
               </a>
             ) : null}
           </div>
-          {!CALENDLY && (
-            <p className="mt-4 text-xs text-sage-600">
-              Optional: set{" "}
-              <code className="rounded bg-sage-100 px-1 py-0.5">
-                VITE_CALENDLY_URL
-              </code>{" "}
-              in <code className="rounded bg-sage-100 px-1 py-0.5">.env</code> to
-              show a scheduling link.
-            </p>
-          )}
-
-          {!FORMSPREE && (
-            <p className="mt-8 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-              To enable the form, create a form at{" "}
-              <a
-                href="https://formspree.io"
-                className="font-medium underline underline-offset-2"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Formspree
-              </a>{" "}
-              and set{" "}
-              <code className="rounded bg-amber-100/80 px-1">
-                VITE_FORMSPREE_ENDPOINT
-              </code>{" "}
-              in <code className="rounded bg-amber-100/80 px-1">.env</code> (see{" "}
-              <code className="rounded bg-amber-100/80 px-1">.env.example</code>
-              ).
-            </p>
-          )}
+          <ul className="mt-10 space-y-3 text-sage-700">
+            <li>
+              <span className="font-semibold text-sage-800">{t.email}: </span>
+              <a className="underline-offset-4 hover:underline" href={`mailto:${site.email}`}>{site.email}</a>
+            </li>
+            {site.phone && (
+              <li>
+                <span className="font-semibold text-sage-800">{t.phone}: </span>
+                <a className="underline-offset-4 hover:underline" href={`tel:${site.phone.replace(/\s/g, "")}`}>{site.phone}</a>
+              </li>
+            )}
+            <li>
+              <span className="font-semibold text-sage-800">{t.instagram}: </span>
+              <a className="underline-offset-4 hover:underline" href={site.instagram} target="_blank" rel="noopener noreferrer">{t.instagramLink}</a>
+            </li>
+          </ul>
         </div>
 
         <div
@@ -106,10 +98,10 @@ export function Contact() {
           className="scroll-mt-24 rounded-2xl border border-sage-200/90 bg-stone-warm p-5 shadow-sm ring-1 ring-sage-100 sm:scroll-mt-28 sm:p-8"
         >
           <h2 className="font-display text-xl font-medium text-sage-800">
-            Send a message
+            {t.formTitle}
           </h2>
           <p className="mt-2 text-sm text-sage-600">
-            Name, email, and a few lines are enough—we will follow up by email.
+            {t.formIntro}
           </p>
           <form onSubmit={onSubmit} className="mt-6 space-y-5">
             <div>
@@ -117,7 +109,7 @@ export function Contact() {
                 htmlFor="name"
                 className="block text-sm font-medium text-sage-800"
               >
-                Name
+                {t.name}
               </label>
               <input
                 id="name"
@@ -133,7 +125,7 @@ export function Contact() {
                 htmlFor="email"
                 className="block text-sm font-medium text-sage-800"
               >
-                Email
+                {t.email}
               </label>
               <input
                 id="email"
@@ -149,7 +141,7 @@ export function Contact() {
                 htmlFor="message"
                 className="block text-sm font-medium text-sage-800"
               >
-                Message
+                {t.message}
               </label>
               <textarea
                 id="message"
@@ -157,26 +149,26 @@ export function Contact() {
                 required
                 rows={6}
                 className="mt-2 min-h-[10rem] w-full resize-y rounded-xl border border-sage-200 bg-white px-4 py-3 text-base text-sage-900 outline-none transition focus:border-sage-400 focus:ring-2 focus:ring-sage-200"
-                placeholder="Tell us what you are looking for (e.g. private session, group class, preferred days)…"
+                placeholder={t.placeholder}
               />
             </div>
             <button
               type="submit"
-              disabled={status === "sending" || !FORMSPREE}
+              disabled={status === "sending"}
               className="min-h-12 w-full touch-manipulation rounded-full bg-sage-800 py-3.5 text-base font-semibold text-white transition duration-300 active:scale-[0.98] hover:bg-sage-900 disabled:cursor-not-allowed disabled:opacity-50 sm:min-h-11 sm:py-3 sm:text-sm"
             >
-              {status === "sending" ? "Sending…" : "Send message"}
+              {status === "sending" ? t.sending : t.send}
             </button>
           </form>
 
           {status === "ok" && (
             <p className="mt-4 text-center text-sm font-medium text-sage-600">
-              Thank you — your message was sent.
+              {t.sent}
             </p>
           )}
-          {status === "error" && FORMSPREE && (
+          {status === "error" && (
             <p className="mt-4 text-center text-sm text-red-700">
-              Something went wrong. Please try again or email directly.
+              {t.error} {site.email}.
             </p>
           )}
         </div>
