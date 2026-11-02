@@ -7,18 +7,18 @@ export function Studio() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-section sm:px-8">
       <header className="max-w-3xl">
-        <h1 className="text-balance font-display text-3xl font-medium text-sage-800 sm:text-5xl">
+        <h1 className="text-balance font-display text-3xl font-medium text-ink-800 sm:text-5xl">
           {t.studio.title}
         </h1>
-        <p className="mt-4 text-sage-600 leading-relaxed">{t.studio.intro}</p>
+        <p className="mt-4 text-deep-600 leading-relaxed">{t.studio.intro}</p>
       </header>
 
-      <p className="mt-10 max-w-3xl text-sage-700 leading-relaxed">{t.studio.body}</p>
+      <p className="mt-10 max-w-3xl text-deep-700 leading-relaxed">{t.studio.body}</p>
 
       <section className="mt-14" aria-labelledby="studio-gallery-heading">
         <h2
           id="studio-gallery-heading"
-          className="font-display text-2xl font-medium text-sage-800 sm:text-3xl"
+          className="font-display text-2xl font-medium text-ink-800 sm:text-3xl"
         >
           {t.studio.gallery}
         </h2>

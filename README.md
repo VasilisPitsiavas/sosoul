@@ -18,7 +18,8 @@ Greek is the main language (`/`, `/events` …). English lives under `/en` (`/en
 - Greek + English versions with a language switch.
 - No address, map or prices anywhere.
 - Setup notes no longer shown to visitors; contact form opens the visitor's email app until Formspree is connected.
-- New Home sections: "This week" strip, weekly schedule, FAQ.
+- New homepage: full-width photo hero, photo cards for classes, deep-blue weekly schedule band, reviews, FAQ, baby-blue booking band.
+- Colours: logo blue with baby-blue shades, all defined at the top of `src/index.css`.
 - Compact header with mobile menu; footer with contact details.
 - Each page returns HTTP 200 (deploy writes a real HTML file per route).
 - Per-page titles, Open Graph tags, skip link, smaller logo file.

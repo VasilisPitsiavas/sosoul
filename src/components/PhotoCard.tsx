@@ -43,7 +43,7 @@ export function PhotoCard({
   zoom = false,
 }: PhotoCardProps) {
   return (
-    <figure className="group flex h-full min-w-0 flex-col overflow-hidden rounded-2xl bg-sage-100 shadow-md ring-1 ring-sage-200/50 transition duration-300 ease-out hover:-translate-y-0.5 hover:shadow-lg">
+    <figure className="group flex h-full min-w-0 flex-col overflow-hidden rounded-2xl bg-baby-100 shadow-md ring-1 ring-baby-200/50 transition duration-300 ease-out hover:-translate-y-0.5 hover:shadow-lg">
       <div className={`relative w-full overflow-hidden ${aspectClass[aspect]}`}>
         <PhotoImg
           src={src}
@@ -56,7 +56,7 @@ export function PhotoCard({
           className={`h-full w-full object-cover ${zoom ? "transition duration-500 group-hover:scale-[1.02]" : ""}`}
         />
       </div>
-      <figcaption className="border-t border-sage-200/80 bg-stone-warm/90 px-4 py-3 text-sm text-sage-700">
+      <figcaption className="border-t border-baby-200/80 bg-mist/90 px-4 py-3 text-sm text-deep-700">
         {caption}
       </figcaption>
     </figure>

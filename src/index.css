@@ -4,19 +4,23 @@
   --font-sans: "Outfit", "Manrope", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Cormorant Garamond", "EB Garamond", ui-serif, Georgia, serif;
   /*
-   * Blue palette from logo (#0b4960). Class names sage-* kept for compatibility.
-   * Baby blue / sky blue washes; logo blue for buttons and headings.
+   * Blue palette from the logo (#0b4960): baby-blue washes for surfaces,
+   * deep blues for text and buttons, sky/baby blue as the light accent.
    */
-  --color-stone-warm: #f8fbfd;
-  --color-sage-50: #edf6fc;
-  --color-sage-100: #d6ebf8;
-  --color-sage-200: #b3daf2;
-  --color-sage-300: #89cff0;
-  --color-sage-400: #5eb3dc;
-  --color-sage-600: #3a96c4;
-  --color-sage-700: #247aa8;
-  --color-sage-800: #0b4960;
-  --color-sage-900: #083848;
+  --color-mist: #f8fbfd;
+  --color-baby-50: #edf6fc;
+  --color-baby-100: #d6ebf8;
+  --color-baby-200: #b3daf2;
+  --color-baby-300: #89cff0;
+  --color-deep-600: #247aa8;
+  --color-deep-700: #1b5a78;
+  --color-deep-900: #083848;
+  --color-accent-400: #89cff0;
+  --color-accent-500: #3a96c4;
+  --color-accent-600: #0b4960;
+  --color-accent-700: #083848;
+  --color-ink-800: #0b4960;
+  --color-ink-900: #083848;
 }
 
 @layer base {
@@ -26,7 +30,7 @@
     overflow-x: clip;
   }
   body {
-    @apply bg-stone-warm text-sage-900 font-sans antialiased;
+    @apply bg-mist text-deep-900 font-sans antialiased;
   }
 }
 

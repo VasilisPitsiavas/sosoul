@@ -7,10 +7,10 @@ export function Events() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-section sm:px-8">
       <header className="max-w-3xl">
-        <h1 className="text-balance font-display text-3xl font-medium text-sage-800 sm:text-5xl">
+        <h1 className="text-balance font-display text-3xl font-medium text-ink-800 sm:text-5xl">
           {t.events.title}
         </h1>
-        <p className="mt-4 text-sage-600 leading-relaxed">{t.events.intro}</p>
+        <p className="mt-4 text-deep-600 leading-relaxed">{t.events.intro}</p>
       </header>
 
       <ul className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:gap-10">
