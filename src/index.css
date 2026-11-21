@@ -23,6 +23,16 @@
   --color-ink-900: #083848;
 }
 
+/*
+ * Greek pages: Cormorant Garamond and Outfit have no Greek letters, so Greek
+ * falls back to EB Garamond / Manrope while English words ("Workshops", "yoga")
+ * stayed in the first fonts and looked different. Use one font family for all.
+ */
+html:lang(el) {
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "EB Garamond", ui-serif, Georgia, serif;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;

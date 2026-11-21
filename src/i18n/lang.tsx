@@ -9,7 +9,7 @@ export type Lang = "el" | "en";
 type LangValue = {
   lang: Lang;
   t: Content;
-  /** Turn a site path like "/events" or "/#schedule" into this language's URL. */
+  /** Turn a site path like "/about" or "/contact#faq" into this language's URL. */
   path: (p: string) => string;
 };
 

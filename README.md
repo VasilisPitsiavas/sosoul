@@ -6,19 +6,19 @@ Copy of `../sosoul` with fixes from the Nov 2026 review. The live site is untouc
 
 | What | File |
 |------|------|
-| Email, phone, Instagram, weekly class schedule | `src/data/site.ts` |
+| Email, phone, Instagram, upcoming workshops | `src/data/site.ts` |
 | All wording, Greek + English | `src/i18n/content.ts` |
 | Photos | drop files in `public/photos/` (names listed in `public/photos/README.md`); captions in `src/data/photos.ts` |
 | Your domain | `CUSTOM_DOMAIN` at the top of `vite.config.ts` |
 
-Greek is the main language (`/`, `/events` …). English lives under `/en` (`/en/events` …). The ΕΛ / EN button switches between the same page in each language.
+Greek is the main language (`/`, `/about`, `/practice`, `/workshops`, `/contact`). English lives under `/en` (`/en/about` …). The ΕΛ / EN button switches between the same page in each language.
 
 ## What changed vs. the live site
 
 - Greek + English versions with a language switch.
 - No address, map or prices anywhere.
 - Setup notes no longer shown to visitors; contact form opens the visitor's email app until Formspree is connected.
-- New homepage: full-width photo hero, photo cards for classes, deep-blue weekly schedule band, reviews, FAQ, baby-blue booking band.
+- Pages and text follow the feedback document: Home, About, Practice, Workshops, FAQ & Contact (Greek + English). Old Events / Studio pages, made-up reviews and the sample weekly schedule were removed.
 - Colours: logo blue with baby-blue shades, all defined at the top of `src/index.css`.
 - Compact header with mobile menu; footer with contact details.
 - Each page returns HTTP 200 (deploy writes a real HTML file per route).
@@ -68,10 +68,10 @@ When you connect a custom domain, set `CUSTOM_DOMAIN` in `vite.config.ts` (this 
 ## Ideas to add later
 
 - **Schedule** — Embedded calendar (e.g. Cal.com / Calendly) or a simple “this week’s classes” block you edit in code or a headless CMS.
-- **Real testimonials** — Replace placeholder quotes on Home with client feedback.
+- **Real testimonials** — Add real client quotes once you have them.
 - **FAQ** — Pricing, what to bring, cancellation policy.
 - **Language** — Greek/English toggle if you serve both audiences.
-- **Instagram** — Embed or a small feed of recent posts next to Events.
+- **Instagram** — Embed or a small feed of recent posts on the Home page.
 - **SEO** — Per-route titles/descriptions and Open Graph images for sharing.
 
 Replace Unsplash URLs with your own files under `public/` (e.g. `public/photos/...`) and point `src/data/placeholders.ts` (or new components) at those paths.

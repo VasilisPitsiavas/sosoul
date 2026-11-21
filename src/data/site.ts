@@ -1,29 +1,24 @@
 /**
- * Business details and weekly schedule. Replace the values marked TODO.
+ * Business details. Replace the values marked TODO.
  * Text for both languages lives in src/i18n/content.ts.
  */
 export const site = {
   name: "So Soul Place",
   email: "hello@sosoulplace.com", // TODO: real email
-  phone: "+30 690 000 0000", // TODO: real phone, or "" to hide it
-  instagram: "https://instagram.com/", // TODO: real Instagram profile link
+  phone: "+30 690 000 0000", // TODO: real phone (used for calls, Viber and WhatsApp), or "" to hide it
+  instagram: "https://instagram.com/sosoulplace", // TODO: real Instagram profile link
+  instagramHandle: "@sosoulplace", // TODO: real Instagram name
 };
 
-export type Level = "all" | "beginners" | "intermediate";
-
 /**
- * Weekly classes. `day`: 0 = Sunday, 1 = Monday … 6 = Saturday.
- * Class names are given in Greek (el) and English (en).
+ * Upcoming workshops, shown on the Workshops page (newest first).
+ * Leave the list empty to show "announced here and on Instagram".
+ * Example:
+ *   {
+ *     date: { el: "Σάββατο 14 Μαρτίου, 11:00", en: "Saturday 14 March, 11:00" },
+ *     title: { el: "Yin & τσάι", en: "Yin & tea" },
+ *     text: { el: "Δυόμισι ώρες αργής πρακτικής…", en: "Two and a half hours of slow practice…" },
+ *   },
  */
-export const schedule: {
-  day: number;
-  time: string;
-  name: { el: string; en: string };
-  level: Level;
-}[] = [
-  { day: 1, time: "19:00", name: { el: "Vinyasa Flow", en: "Vinyasa Flow" }, level: "all" },
-  { day: 2, time: "09:30", name: { el: "Ήπια Hatha", en: "Gentle Hatha" }, level: "beginners" },
-  { day: 3, time: "19:00", name: { el: "Αργή ροή & αναπνοή", en: "Slow Flow & Breath" }, level: "all" },
-  { day: 4, time: "18:00", name: { el: "Yin & αποκατάσταση", en: "Yin & Restore" }, level: "all" },
-  { day: 6, time: "10:00", name: { el: "Ροή Σαββατοκύριακου", en: "Weekend Flow" }, level: "intermediate" },
-];
+type Text = { el: string; en: string };
+export const upcomingWorkshops: { date: Text; title: Text; text: Text }[] = [];

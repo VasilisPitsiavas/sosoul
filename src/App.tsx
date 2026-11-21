@@ -1,15 +1,17 @@
 import { Route, Routes } from "react-router-dom";
 import { LangRoot } from "./i18n/lang";
+import { About } from "./pages/About";
 import { Contact } from "./pages/Contact";
-import { Events } from "./pages/Events";
 import { Home } from "./pages/Home";
-import { Studio } from "./pages/Studio";
+import { Practice } from "./pages/Practice";
+import { Workshops } from "./pages/Workshops";
 
 const pages = (
   <>
     <Route index element={<Home />} />
-    <Route path="events" element={<Events />} />
-    <Route path="studio" element={<Studio />} />
+    <Route path="about" element={<About />} />
+    <Route path="practice" element={<Practice />} />
+    <Route path="workshops" element={<Workshops />} />
     <Route path="contact" element={<Contact />} />
     <Route path="*" element={<Home />} />
   </>

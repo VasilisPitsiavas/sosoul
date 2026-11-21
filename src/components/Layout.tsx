@@ -4,8 +4,8 @@ import { site } from "@/data/site";
 import { useLang } from "@/i18n/lang";
 import { Logo } from "./Logo";
 
-const pages = ["home", "events", "studio", "contact"] as const;
-const pagePath = { home: "/", events: "/events", studio: "/studio", contact: "/contact" };
+const pages = ["home", "about", "practice", "workshops", "contact"] as const;
+const pagePath = { home: "/", about: "/about", practice: "/practice", workshops: "/workshops", contact: "/contact" };
 
 export function Layout({ children }: { children: ReactNode }) {
   const { pathname, hash } = useLocation();
@@ -74,7 +74,7 @@ export function Layout({ children }: { children: ReactNode }) {
           </Link>
 
           {/* Desktop nav */}
-          <div className="hidden items-center gap-3 md:flex">
+          <div className="hidden items-center gap-3 lg:flex">
             <nav className="flex items-center gap-1" aria-label="Main">
               {pages.map((p) => (
                 <Link key={p} to={path(pagePath[p])} className={linkClass(current === p)}>
@@ -86,7 +86,7 @@ export function Layout({ children }: { children: ReactNode }) {
           </div>
 
           {/* Mobile: language + menu button */}
-          <div className="flex items-center gap-1 md:hidden">
+          <div className="flex items-center gap-1 lg:hidden">
             {langSwitch}
             <button
               type="button"
@@ -107,7 +107,7 @@ export function Layout({ children }: { children: ReactNode }) {
           <nav
             id="mobile-nav"
             aria-label="Main"
-            className="flex flex-col gap-1 border-t border-baby-200/60 px-4 pb-4 pt-2 md:hidden"
+            className="flex flex-col gap-1 border-t border-baby-200/60 px-4 pb-4 pt-2 lg:hidden"
           >
             {pages.map((p) => (
               <Link key={p} to={path(pagePath[p])} className={linkClass(current === p)}>
@@ -126,12 +126,8 @@ export function Layout({ children }: { children: ReactNode }) {
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-8 md:grid-cols-2">
           <div className="flex flex-col items-center gap-3 md:items-start">
             <Logo variant="footer" />
-            <p className="font-display text-lg text-ink-800">
-              {site.name} — {t.footer.tagline}
-            </p>
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-accent-600">
-              {t.tagline}
-            </p>
+            <p className="font-display text-xl text-ink-800">{t.footer.line}</p>
+            <p className="text-sm text-deep-700">{t.footer.sub}</p>
           </div>
           <div className="text-center text-sm text-deep-700 md:text-right">
             <h2 className="font-semibold text-ink-800">{t.footer.contactHeading}</h2>
@@ -150,7 +146,7 @@ export function Layout({ children }: { children: ReactNode }) {
               )}
               <li>
                 <a className="underline-offset-4 hover:underline" href={site.instagram} target="_blank" rel="noopener noreferrer">
-                  Instagram
+                  {site.instagramHandle}
                 </a>
               </li>
             </ul>

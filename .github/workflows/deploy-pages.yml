@@ -26,7 +26,7 @@ jobs:
       - run: npm run build
       - name: Real HTML file per route (returns 200, not 404) + SPA fallback
         run: |
-          for r in events studio contact en en/events en/studio en/contact; do
+          for r in about practice workshops contact en en/about en/practice en/workshops en/contact; do
             mkdir -p "dist/$r" && cp dist/index.html "dist/$r/index.html"
           done
           cp dist/index.html dist/404.html
