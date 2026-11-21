@@ -26,23 +26,23 @@ export function Workshops() {
 
       {/* Intro */}
       <section className="bg-mist">
-        <div className="mx-auto max-w-3xl px-4 py-20 sm:px-8">
-          <p className="text-pretty font-display text-2xl leading-snug text-ink-800 sm:text-[1.7rem]">{w.body[0]}</p>
-          <p className="mt-6 text-lg leading-relaxed text-deep-700">{w.body[1]}</p>
+        <div className="mx-auto max-w-3xl px-4 py-14 sm:py-20 sm:px-8">
+          <p className="text-pretty font-display text-xl leading-snug text-ink-800 sm:text-[1.7rem]">{w.body[0]}</p>
+          <p className="mt-6 text-base leading-relaxed sm:text-lg text-deep-700">{w.body[1]}</p>
         </div>
       </section>
 
       {/* Kinds of workshop */}
       <section className="bg-baby-50">
-        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-8">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:py-20 sm:px-8">
           <h2 className={h2}>{w.kindsTitle}</h2>
-          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-deep-700">{w.kindsText}</p>
+          <p className="mt-6 max-w-3xl text-base leading-relaxed sm:text-lg text-deep-700">{w.kindsText}</p>
         </div>
       </section>
 
       {/* Upcoming */}
       <section id="upcoming" className="scroll-mt-20 bg-ink-900 text-mist">
-        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-8">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:py-20 sm:px-8">
           <h2 className="font-display text-3xl font-medium sm:text-4xl">{w.upcomingTitle}</h2>
           {upcomingWorkshops.length > 0 ? (
             <ul className="mt-10 grid gap-5 md:grid-cols-2">
@@ -55,7 +55,7 @@ export function Workshops() {
               ))}
             </ul>
           ) : (
-            <p className="mt-6 max-w-2xl font-display text-2xl leading-snug text-baby-100">{w.noUpcoming}</p>
+            <p className="mt-6 max-w-2xl font-display text-xl leading-snug sm:text-2xl text-baby-100">{w.noUpcoming}</p>
           )}
           <p className="mt-8 max-w-2xl text-lg text-baby-200">{w.askLine}</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -72,7 +72,7 @@ export function Workshops() {
 
       {/* Gallery */}
       <section className="bg-mist">
-        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-8">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:py-20 sm:px-8">
           <h2 className={h2}>{w.galleryTitle}</h2>
           <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {workshopPhotos.map((p) => (

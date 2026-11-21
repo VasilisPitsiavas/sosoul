@@ -13,7 +13,7 @@ export function Home() {
     <>
       <PageHero photo={eventPhotos[0]} eyebrow={h.eyebrow} title={h.title} tall>
         <p className="mt-4 font-display text-2xl italic text-baby-200 sm:text-3xl">{h.subtitle}</p>
-        <div className="mt-6 max-w-xl space-y-1 text-lg leading-relaxed text-baby-100">
+        <div className="mt-6 max-w-xl space-y-1 text-base leading-relaxed sm:text-lg text-baby-100">
           {h.lines.map((l) => (
             <p key={l}>{l}</p>
           ))}
@@ -27,14 +27,14 @@ export function Home() {
 
       {/* Introduction */}
       <section className="bg-mist">
-        <div className="mx-auto max-w-3xl px-4 py-20 sm:px-8">
+        <div className="mx-auto max-w-3xl px-4 py-14 sm:py-20 sm:px-8">
           {h.body.map((p, i) => (
             <p
               key={i}
               className={
                 i === 0
-                  ? "text-pretty font-display text-2xl leading-snug text-ink-800 sm:text-[1.7rem]"
-                  : "mt-6 text-lg leading-relaxed text-deep-700"
+                  ? "text-pretty font-display text-xl leading-snug text-ink-800 sm:text-[1.7rem]"
+                  : "mt-6 text-base leading-relaxed sm:text-lg text-deep-700"
               }
             >
               {p}
@@ -48,7 +48,7 @@ export function Home() {
 
       {/* Ways to practise */}
       <section className="bg-baby-50">
-        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-8">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:py-20 sm:px-8">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <h2 className={`${h2} max-w-2xl`}>{h.formatsTitle}</h2>
             <Link to={path("/practice")} className="text-sm font-semibold text-accent-600 hover:underline">
@@ -63,7 +63,7 @@ export function Home() {
 
       {/* Workshops teaser */}
       <section className="bg-mist">
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-20 sm:px-8 lg:grid-cols-2 lg:gap-16">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 sm:py-20 sm:px-8 lg:grid-cols-2 lg:gap-16">
           <div className="aspect-[3/2] overflow-hidden rounded-3xl bg-baby-100">
             <PhotoImg
               src={workshopPhotos[0].src}
@@ -76,7 +76,7 @@ export function Home() {
           <div>
             <h2 className={h2}>{t.workshops.homeTitle}</h2>
             <p className="mt-3 font-display text-2xl italic text-accent-500">{t.workshops.title}</p>
-            <p className="mt-5 text-lg leading-relaxed text-deep-700">{t.workshops.homeText}</p>
+            <p className="mt-5 text-base leading-relaxed sm:text-lg text-deep-700">{t.workshops.homeText}</p>
             <Link to={path("/workshops")} className={`${btnSecondary} mt-8`}>
               {t.workshops.homeCta}
             </Link>

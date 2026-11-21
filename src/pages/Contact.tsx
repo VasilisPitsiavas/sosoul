@@ -77,7 +77,7 @@ export function Contact() {
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-section sm:px-8 lg:grid-cols-2 lg:items-start lg:gap-16">
           <div className="min-w-0">
             <h2 className={h2}>{t.title}</h2>
-            <p className="mt-4 text-pretty text-lg leading-relaxed text-deep-700">{t.intro}</p>
+            <p className="mt-4 text-pretty text-base leading-relaxed sm:text-lg text-deep-700">{t.intro}</p>
             <ul className="mt-10 space-y-4 text-deep-700">
               <li>
                 <p className="text-sm font-semibold text-ink-800">{t.email}</p>

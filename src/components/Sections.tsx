@@ -1,4 +1,4 @@
-import { type ReactNode, useRef, useState } from "react";
+import { Children, type ReactNode, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { PhotoImg } from "@/components/PhotoCard";
 import { eventPhotos, studioPhotos, type Photo } from "@/data/photos";
@@ -21,16 +21,17 @@ export function PageHero({
   return (
     <section className="relative isolate overflow-hidden">
       <PhotoImg src={photo.src} fallback={photo.fallback} alt="" className="absolute inset-0 -z-10 h-full w-full object-cover" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-deep-900/85 via-deep-900/55 to-deep-900/15" />
+      {/* Phones: darken from the bottom (where the text is). Wider: from the left. */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-deep-900/95 via-deep-900/60 to-deep-900/10 sm:bg-gradient-to-r sm:from-deep-900/85 sm:via-deep-900/55 sm:to-deep-900/15" />
       <div
-        className={`mx-auto flex max-w-6xl flex-col justify-end px-4 pb-14 pt-20 sm:px-8 lg:justify-center lg:pb-20 ${
-          tall ? "min-h-[72svh]" : "min-h-[46svh]"
+        className={`mx-auto flex max-w-6xl flex-col justify-end px-5 pb-10 pt-24 sm:px-8 sm:pb-14 lg:justify-center lg:pb-20 ${
+          tall ? "min-h-[78svh] sm:min-h-[72svh]" : "min-h-[52svh] sm:min-h-[46svh]"
         }`}
       >
         {eyebrow && (
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-400">{eyebrow}</p>
         )}
-        <h1 className="mt-4 max-w-3xl text-balance font-display text-4xl font-medium leading-[1.08] text-mist sm:text-6xl">
+        <h1 className="mt-3 max-w-3xl text-balance font-display text-[2.6rem] font-medium leading-[1.05] text-mist sm:mt-4 sm:text-6xl">
           {title}
         </h1>
         {children}
@@ -49,6 +50,61 @@ const formatIcons = [
 ];
 
 /**
+ * Phones: a row you swipe sideways (the next card peeks in), with dots below.
+ * From `md` up: a normal grid (`grid` sets the columns).
+ */
+export function Swipe({
+  children,
+  grid = "md:grid-cols-3",
+}: {
+  children: ReactNode;
+  grid?: string;
+}) {
+  const items = Children.toArray(children);
+  const rowRef = useRef<HTMLUListElement>(null);
+  const [active, setActive] = useState(0);
+
+  const onScroll = () => {
+    const row = rowRef.current;
+    const first = row?.firstElementChild as HTMLElement | null;
+    if (!row || !first) return;
+    setActive(Math.round(row.scrollLeft / (first.offsetWidth + 16)));
+  };
+  const goTo = (i: number) => {
+    const el = rowRef.current?.children[i] as HTMLElement | undefined;
+    el?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+  };
+
+  return (
+    <div>
+      <ul
+        ref={rowRef}
+        onScroll={onScroll}
+        className={`-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-4 px-4 pb-4 pt-1 [scrollbar-width:none] sm:-mx-8 sm:scroll-px-8 sm:px-8 md:mx-0 md:grid md:gap-6 md:overflow-visible md:p-0 [&::-webkit-scrollbar]:hidden ${grid}`}
+      >
+        {items.map((child, i) => (
+          <li key={i} className="flex w-[84%] shrink-0 snap-start sm:w-[58%] md:w-auto [&>*]:w-full">
+            {child}
+          </li>
+        ))}
+      </ul>
+      <div className="mt-3 flex justify-center gap-2 md:hidden">
+        {items.map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            onClick={() => goTo(i)}
+            aria-label={`${i + 1} / ${items.length}`}
+            aria-current={active === i}
+            className={`h-2 rounded-full transition-all ${active === i ? "w-6 bg-accent-600" : "w-2 bg-baby-300"}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/**
  * Group / 1-on-1 / online cards.
  * `flip`: photo on the front, tap to turn it and read the details (Home).
  * Without it the description sits on the photo (Practice page).
@@ -57,12 +113,12 @@ export function FormatCards({ flip = false }: { flip?: boolean }) {
   const { t } = useLang();
   const images = formatImages();
   return (
-    <ul className="grid gap-6 md:grid-cols-3">
+    <Swipe>
       {t.practice.formats.map((f, i) =>
         flip ? (
           <FlipCard key={f.title} format={f} photo={images[i]} icon={formatIcons[i]} />
         ) : (
-          <li
+          <div
             key={f.title}
             className="relative isolate flex aspect-[4/5] flex-col justify-end overflow-hidden rounded-3xl p-6 text-white sm:aspect-[3/4]"
           >
@@ -76,10 +132,10 @@ export function FormatCards({ flip = false }: { flip?: boolean }) {
             <div className="absolute inset-0 -z-10 bg-gradient-to-t from-deep-900/90 via-deep-900/45 to-transparent" />
             <h3 className="font-display text-2xl">{f.title}</h3>
             <p className="mt-2 text-sm leading-relaxed text-baby-100">{f.text}</p>
-          </li>
+          </div>
         ),
       )}
-    </ul>
+    </Swipe>
   );
 }
 
@@ -104,9 +160,9 @@ function FlipCard({
   const face = "rounded-3xl [grid-area:1/1] backface-hidden";
 
   return (
-    <li className="group perspective-[1400px]">
+    <div className="group perspective-[1400px]">
       <div
-        className={`grid min-h-[26rem] transition-transform duration-700 ease-[cubic-bezier(.2,.7,.2,1)] transform-3d motion-reduce:duration-0 sm:min-h-[28rem] ${
+        className={`grid h-full min-h-[27rem] transition-transform duration-700 ease-[cubic-bezier(.2,.7,.2,1)] transform-3d motion-reduce:duration-0 sm:min-h-[28rem] ${
           flipped ? "rotate-y-180" : "group-hover:rotate-y-6"
         }`}
       >
@@ -178,7 +234,7 @@ function FlipCard({
           </div>
         </div>
       </div>
-    </li>
+    </div>
   );
 }
 

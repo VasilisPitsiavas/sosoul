@@ -33,6 +33,19 @@ export function Layout({ children }: { children: ReactNode }) {
     setMenuOpen(false);
   }, [pathname, hash, current, t]);
 
+  // While the phone menu is open: no page scroll behind it, Escape closes it
+  useEffect(() => {
+    if (!menuOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMenuOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [menuOpen]);
+
   const linkClass = (active: boolean) =>
     `inline-flex min-h-11 touch-manipulation items-center rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200 ${
       active
@@ -60,7 +73,7 @@ export function Layout({ children }: { children: ReactNode }) {
       >
         {t.skip}
       </a>
-      <header className="sticky top-0 z-50 border-b border-baby-200/60 bg-mist/95 backdrop-blur">
+      <header className="sticky top-0 z-50 border-b border-baby-200/60 bg-mist/95 backdrop-blur [--header-h:73px]">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-2 sm:px-8">
           <Link
             to={path("/")}
@@ -103,17 +116,41 @@ export function Layout({ children }: { children: ReactNode }) {
           </div>
         </div>
 
+        {/* Phone menu: full screen under the header */}
         {menuOpen && (
           <nav
             id="mobile-nav"
             aria-label="Main"
-            className="flex flex-col gap-1 border-t border-baby-200/60 px-4 pb-4 pt-2 lg:hidden"
+            className="absolute inset-x-0 top-full z-40 flex h-[calc(100dvh-var(--header-h))] flex-col overflow-y-auto border-t border-baby-200/60 bg-mist px-6 pb-8 pt-4 lg:hidden"
           >
-            {pages.map((p) => (
-              <Link key={p} to={path(pagePath[p])} className={linkClass(current === p)}>
-                {t.nav[p]}
-              </Link>
-            ))}
+            <ul className="divide-y divide-baby-200/70">
+              {pages.map((p) => (
+                <li key={p}>
+                  <Link
+                    to={path(pagePath[p])}
+                    aria-current={current === p ? "page" : undefined}
+                    className={`flex items-center justify-between py-4 font-display text-[1.75rem] leading-tight transition-colors ${
+                      current === p ? "text-accent-500" : "text-ink-800 active:text-accent-500"
+                    }`}
+                  >
+                    {t.nav[p]}
+                    <span aria-hidden className="text-lg text-baby-300">→</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <Link
+              to={path("/contact#contact")}
+              className="mt-8 inline-flex min-h-12 items-center justify-center rounded-full bg-accent-600 px-7 text-base font-semibold text-white"
+            >
+              {t.bookCta}
+            </Link>
+            <div className="mt-auto flex flex-col items-center gap-1 pt-10 text-sm text-deep-700">
+              <a href={`mailto:${site.email}`} className="py-1">{site.email}</a>
+              <a href={site.instagram} target="_blank" rel="noopener noreferrer" className="py-1">
+                Instagram · {site.instagramHandle}
+              </a>
+            </div>
           </nav>
         )}
       </header>
