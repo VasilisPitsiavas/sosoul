@@ -9,7 +9,7 @@ import { defineConfig } from "vite";
  * put it here, e.g. "sosoulplace.gr", then push. Leave "" to keep using
  * https://vasilispitsiavas.github.io/sosoul/
  */
-const CUSTOM_DOMAIN = "";
+const CUSTOM_DOMAIN = "sosoulplace.gr";
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const SITE_URL = CUSTOM_DOMAIN
